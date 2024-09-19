@@ -16,7 +16,7 @@ def my_signal_handler(sender, instance, **kwargs):
     print("Signal handler executed synchronously.")
 
 # Usage
-# This will trigger the signal and execute the handler synchronously.
+
 instance = MyModel(name="Test")
 instance.save()
 
@@ -36,7 +36,7 @@ def my_signal_handler(sender, instance, **kwargs):
     print("Signal handler running in thread:", threading.current_thread().name)
 
 # Usage
-# This will trigger the signal and run the handler in the same thread.
+
 instance = MyModel(name="Test")
 instance.save()
 ```
@@ -55,7 +55,7 @@ def my_signal_handler(sender, instance, **kwargs):
         print("Signal handler executed within transaction.")
 
 # Usage
-# Wrap the creation in a transaction and trigger the signal.
+
 with transaction.atomic():
     instance = MyModel(name="Test")
     instance.save()
@@ -68,20 +68,17 @@ Description: You are tasked with creating a Rectangle class with the following r
 An instance of the Rectangle class requires length:int and width:int to be initialized.
 We can iterate over an instance of the Rectangle class
 When an instance of the Rectangle class is iterated over, we first get its length in the format: {'length': <VALUE_OF_LENGTH>} followed by the width {width: <VALUE_OF_WIDTH>}
-```class Rectangle:
-    def __init__(self, length: int, width: int):
-        if not isinstance(length, int) or not isinstance(width, int):
-            raise ValueError("Length and width must be integers.")
-        if length <= 0 or width <= 0:
-            raise ValueError("Length and width must be positive integers.")
+```
+ def __init__(self, length: int, width: int):
         self.length = length
         self.width = width
 
     def __iter__(self):
-        # Define the iterator to yield the length and width in the required format
         yield {'length': self.length}
         yield {'width': self.width}
 
+    def __repr__(self):
+        return f"Rectangle(length={self.length}, width={self.width})"
 # Example usage:
 rect = Rectangle(5, 3)
 
